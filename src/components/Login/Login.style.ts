@@ -9,9 +9,7 @@ form{
       margin-bottom: 30px;
     }
     input{
-      box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
       border-radius: 25px;
-      border: none;
       width: 346px;
       padding: 12px 0 12px 21px;
       font-style: italic;
