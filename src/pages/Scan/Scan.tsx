@@ -65,7 +65,9 @@ const Scan = () => {
   };
 
   const constraints = {
-    facingMode: "environment",
+    video: {
+      facingMode: { exact: 'environment' }
+    }
   };
 
   /* Funções para editar o item como verificado ou retornar para o menu principal */
