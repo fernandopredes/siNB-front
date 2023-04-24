@@ -64,6 +64,10 @@ const Scan = () => {
     width: 320,
   };
 
+  const constraints = {
+    facingMode: "environment",
+  };
+
   /* Funções para editar o item como verificado ou retornar para o menu principal */
   const editStatus = async () => {
     try {
@@ -87,6 +91,7 @@ const Scan = () => {
           style={previewStyle}
           onError={handleError}
           onScan={handleScan}
+          constraints={constraints}
         />
         <div className="description">
           <h2>{record.description}</h2>
