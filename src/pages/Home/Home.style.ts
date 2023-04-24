@@ -25,7 +25,10 @@ span{
   font-size: 18px;
   line-height: 25px;
   color: #003D77;
-  margin-top: 50px;
+  background: #F5F5F5;
+  a {
+  color: #003D77;
+  }
 }
 img{
   margin-bottom: 90px;

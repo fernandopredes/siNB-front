@@ -7,8 +7,16 @@ form{
     align-items:start;
     label{
       margin-bottom: 30px;
+      input{
+        margin-bottom: 18px;
+      }
+      span{
+        background: #F5F5F5;
+      }
     }
     input{
+      box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
+      border: none;
       border-radius: 25px;
       width: 346px;
       padding: 12px 0 12px 21px;
