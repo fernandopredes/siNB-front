@@ -16,7 +16,7 @@ const Dashboard = () => {
 
   return (
     <DashboardStyle>
-      <DashboardLink to='#'>
+      <DashboardLink to='/scan'>
         <img src={dash} alt="ícone de prancheta" />
         <h3>inventariar bens</h3>
       </DashboardLink>
