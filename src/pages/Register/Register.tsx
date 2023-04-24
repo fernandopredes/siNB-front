@@ -23,7 +23,7 @@ const schema = yup.object({
 
 function Register() {
 
-  const { register, handleSubmit, watch, control, formState: { errors } } = useForm<Inputs>({
+  const { register, handleSubmit, control, formState: { errors } } = useForm<Inputs>({
     resolver: yupResolver(schema)
   })
 
@@ -35,7 +35,7 @@ function Register() {
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const registerUser = async () => {
       try {
-        const res = await api.post('/register', {
+          await api.post('/register', {
           name: data.name,
           registry: data.registry,
           password: data.password
