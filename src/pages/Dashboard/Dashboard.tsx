@@ -24,7 +24,7 @@ const Dashboard = () => {
         <img src={plane} alt="icone de avião" />
         <h3>inventário por dependência</h3>
       </DashboardLink>
-      <DashboardLink to='#'>
+      <DashboardLink to='/owner'>
         <img src={person} alt="ícone de pessoa" />
         <h3>inventário por detentor</h3>
       </DashboardLink>
