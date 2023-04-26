@@ -50,10 +50,15 @@ export const RegisterStyle = styled.div `
       border: none;
       cursor: pointer;
       transition: background-color 0.5s ease;
+      :disabled {
+      background-color: gray;
+      cursor: not-allowed;
+      }
       :hover {
       background-color: #97AD3C;
       }
     }
+
     input:focus {
     outline: none;
     }
