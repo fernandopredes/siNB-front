@@ -82,8 +82,22 @@ const Owner = () => {
             <th>Verificado</th>
           </tr>
         </thead>
-      {patrimonyNumber === '' ?
+      {patrimonyNumber !== '' && searchTerm !== null ?
       <>
+        <tbody>
+          <tr>
+            <td>{searchTerm?.description}</td>
+            <td>{searchTerm?.number}</td>
+            <td>{searchTerm?.verified ?
+                  <span>Sim <img src={check} alt="icone de check" /></span>
+                  :
+                  <span>Não <img src={cross} alt="icone de x" /></span>}
+            </td>
+          </tr>
+        </tbody>
+
+      </>
+      :
         <tbody>
           {userData.map(item => (
             <tr key={item.id}>
@@ -98,23 +112,9 @@ const Owner = () => {
           ))}
         </tbody>
 
-      </>
-      :
-
-      <tbody>
-        <tr>
-          <td>{searchTerm?.description}</td>
-          <td>{searchTerm?.number}</td>
-          <td>{searchTerm?.verified ?
-                <span>Sim <img src={check} alt="icone de check" /></span>
-                :
-                <span>Não <img src={cross} alt="icone de x" /></span>}
-          </td>
-        </tr>
-      </tbody>
       }
       </table>
-      {patrimonyNumber === '' ?
+      {patrimonyNumber === '' || searchTerm === null ?
         <div className="bottom">
           <button onClick={handlePrevPage} disabled={page === 1}>Anterior</button>
           <button onClick={handleNextPage}>Próxima</button>
