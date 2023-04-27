@@ -3,6 +3,9 @@ import api from "../../api";
 import check from '../../assets/c.svg'
 import cross from '../../assets/x.svg'
 import { OwnerStyle } from "./Owner.style";
+import { useNavigate } from "react-router-dom";
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
 
 interface Patrimonio {
   id: number;
@@ -16,9 +19,30 @@ const Owner = () => {
   const token = localStorage.getItem('token')
 
   const [userData, setUserData] = useState<Patrimonio[]>([])
+  const [userFullData, setUserFullData] = useState<Patrimonio[]>([])
   const [searchTerm, setSearchTerm] = useState<Patrimonio | null>(null)
   const [patrimonyNumber, setPatrimonyNumber] = useState<string>('')
   const [page, setPage] = useState(1)
+
+  const getFullData = async () =>{
+    await api.get(`/my-patrimonies`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(res => {
+      setUserFullData(res.data)
+      console.log(userData)
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  }
+
+  useEffect(() => {
+    getFullData()
+  }, [])
+
 
   const getData = async () =>{
     await api.get(`/my-patrimonies?page=${page}`, {
@@ -28,7 +52,6 @@ const Owner = () => {
     })
     .then(res => {
       setUserData(res.data)
-      console.log(userData)
     })
     .catch(error => {
       console.error(error);
@@ -47,7 +70,6 @@ const Owner = () => {
       }
     })
     .then(res => {
-      console.log(res.data)
       setSearchTerm(res.data)
     })
     .catch(error => {
@@ -65,11 +87,42 @@ const Owner = () => {
     setPage(page + 1)
   }
 
+  const navigate = useNavigate();
+  const returnHome = () =>{
+    navigate('/')
+  }
+
+  const generatePdf = () => {
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.text("Relatório de Patrimônios", 14, 22);
+    doc.setFontSize(14);
+    doc.text(`Data: ${new Date().toLocaleDateString()}`, 14, 30);
+    doc.setFontSize(12);
+
+    (doc as any).autoTable({
+      head: [["Descrição", "Patrimônio", "Verificado"]],
+      body: userFullData.map((item) => [
+        item.description,
+        item.number,
+        item.verified ? "Sim" : "Não",
+      ]),
+      startY: 40,
+    });
+
+    doc.save("relatorio_patrimonios.pdf");
+  };
+
   return (
     <OwnerStyle>
+      <div className="bottom menu">
+        <button onClick={() => {returnHome()}}>Voltar</button>
+        <button onClick={generatePdf}>Gerar relatório</button>
+      </div>
       <form onSubmit={handleSearch} className="top">
         <label htmlFor="search"/>
-        <div>
+        <div className="search-item">
           <input placeholder="Digite o número do item" type="text" id="search" value={patrimonyNumber} onChange={(event) => setPatrimonyNumber(event.target.value)} />
           <button type="submit">Buscar</button>
         </div>
@@ -78,8 +131,8 @@ const Owner = () => {
         <thead>
           <tr>
             <th>Descrição</th>
-            <th>Número</th>
-            <th>Verificado</th>
+            <th>Patrimônio</th>
+            <th>Localizado</th>
           </tr>
         </thead>
       {patrimonyNumber !== '' && searchTerm !== null ?
