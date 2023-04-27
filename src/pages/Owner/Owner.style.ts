@@ -91,9 +91,30 @@ export const OwnerStyle = styled.div`
     justify-content: center;
   }
 
+  .search-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    button{
+      margin-top: 1rem;
+      width: 120px;
+    }
+  }
+
   .bottom {
   margin-top: 2rem;
   display: flex;
   justify-content: space-around;
+  }
+  .menu{
+    justify-content: space-between;
+    button{
+      padding: 1px 10px;
+      max-width: 150px;
+      background-color: #0074A6;
+      :hover{
+        background-color: #0099DA;
+      }
+    }
   }
 `;
