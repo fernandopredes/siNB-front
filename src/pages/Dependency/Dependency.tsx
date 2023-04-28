@@ -20,8 +20,6 @@ const Dependency = () => {
   const decodedAirport = decodeURIComponent(airport || '');
 
 
-  const token = localStorage.getItem('token')
-
   const [airportData, setAirportData] = useState<Patrimonio[]>([])
   const [airportFullData, setAirportFullData] = useState<Patrimonio[]>([])
   const [searchTerm, setSearchTerm] = useState<Patrimonio | null>(null)
