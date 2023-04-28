@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const OwnerStyle = styled.div`
+export const DependencyStyle = styled.div`
   button{
       font-style: normal;
       font-weight: 700;

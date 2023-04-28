@@ -2,39 +2,36 @@ import { useEffect, useState } from "react";
 import api from "../../api";
 import check from '../../assets/c.svg'
 import cross from '../../assets/x.svg'
-import { OwnerStyle } from "./Owner.style";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
-import { toTitleCase } from "../../utils/utils";
-
+import { DependencyStyle } from "./Dependency.style";
 
 interface Patrimonio {
   id: number;
   description: string;
   number: number;
   verified: boolean;
-  responsible:string;
 }
 
-const Owner = () => {
+const Dependency = () => {
+
+  const { airport } = useParams();
+  const decodedAirport = decodeURIComponent(airport || '');
+
 
   const token = localStorage.getItem('token')
 
-  const [userData, setUserData] = useState<Patrimonio[]>([])
-  const [userFullData, setUserFullData] = useState<Patrimonio[]>([])
+  const [airportData, setAirportData] = useState<Patrimonio[]>([])
+  const [airportFullData, setAirportFullData] = useState<Patrimonio[]>([])
   const [searchTerm, setSearchTerm] = useState<Patrimonio | null>(null)
   const [patrimonyNumber, setPatrimonyNumber] = useState<string>('')
   const [page, setPage] = useState(1)
 
   const getFullData = async () =>{
-    await api.get(`/my-patrimonies`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
+    await api.get(`/airport_details?airport=${decodedAirport}`)
     .then(res => {
-      setUserFullData(res.data)
+      setAirportFullData(res.data)
     })
     .catch(error => {
       console.error(error);
@@ -47,13 +44,9 @@ const Owner = () => {
 
 
   const getData = async () =>{
-    await api.get(`/my-patrimonies?page=${page}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
+    await api.get(`/airport_details?page=${page}&items_per_page=10&airport=${decodedAirport}`)
     .then(res => {
-      setUserData(res.data)
+      setAirportData(res.data)
     })
     .catch(error => {
       console.error(error);
@@ -66,13 +59,9 @@ const Owner = () => {
 
   const handleSearch = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    await api.get(`/search/${patrimonyNumber}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
+    await api.get(`/airport_details?number=${patrimonyNumber}&airport=${decodedAirport}`)
     .then(res => {
-      setSearchTerm(res.data)
+      setSearchTerm(res.data[0])
     })
     .catch(error => {
       console.error(error);
@@ -98,14 +87,14 @@ const Owner = () => {
     const doc = new jsPDF();
 
     doc.setFontSize(18);
-    doc.text(`Relatório de Patrimônios de ${toTitleCase(userData[0].responsible)}`, 14, 22);
+    doc.text(`Relatório do Aeroporto ${decodedAirport}`, 14, 22);
     doc.setFontSize(14);
     doc.text(`Data: ${new Date().toLocaleDateString()}`, 14, 30);
     doc.setFontSize(12);
 
     (doc as any).autoTable({
       head: [["Descrição", "Patrimônio", "Localizado"]],
-      body: userFullData.map((item) => [
+      body: airportFullData.map((item) => [
         item.description,
         item.number,
         item.verified ? "Sim" : "Não",
@@ -117,7 +106,7 @@ const Owner = () => {
   };
 
   return (
-    <OwnerStyle>
+    <DependencyStyle>
       <div className="bottom menu">
         <button onClick={() => {returnHome()}}>Voltar</button>
         <button onClick={generatePdf}>Gerar relatório</button>
@@ -154,7 +143,7 @@ const Owner = () => {
       </>
       :
         <tbody>
-          {userData.map(item => (
+          {airportData.map(item => (
             <tr key={item.id}>
               <td>{item.description}</td>
               <td>{item.number}</td>
@@ -178,8 +167,8 @@ const Owner = () => {
       null
       }
 
-    </OwnerStyle>
+    </DependencyStyle>
   )
 }
 
-export default Owner
+export default Dependency

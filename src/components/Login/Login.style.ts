@@ -4,7 +4,7 @@ export const LoginStyle = styled.div `
 form{
     display: flex;
     flex-direction:column;
-    align-items:start;
+    align-items:center;
     label{
       margin-bottom: 30px;
       input{
@@ -16,9 +16,8 @@ form{
     }
     input{
       box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
-      border: none;
       border-radius: 25px;
-      width: 346px;
+      width: 340px;
       padding: 12px 0 12px 21px;
       font-style: italic;
       font-size: 20px;

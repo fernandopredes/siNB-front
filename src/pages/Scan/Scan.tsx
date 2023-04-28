@@ -120,8 +120,8 @@ const Scan = () => {
           </div>
         </div>
         <div className="verify">
-          <h3>Deseja marcar esse item como verificado?</h3>
-          <p>*Caso o item já esteja verificado, ele não mudará de status.</p>
+          <h3>Deseja marcar esse item como localizado?</h3>
+          <p>*Caso o item já esteja localizado, ele não mudará de status.</p>
         </div>
         <div className="btns">
           <button onClick={() => {editStatus()}}>Sim</button>

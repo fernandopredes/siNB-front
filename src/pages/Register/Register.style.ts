@@ -67,7 +67,7 @@ export const RegisterStyle = styled.div `
   .buttons{
     display: flex;
     justify-content:space-between;
-    width: 400px;
+    width: 360px;
   }
 `
 export const BtnGoBack = styled(Link)`
