@@ -78,7 +78,7 @@ const Dependency = () => {
 
   const navigate = useNavigate();
   const returnHome = () =>{
-    navigate('/')
+    navigate('/dependencies')
   }
 
   const generatePdf = () => {
