@@ -20,7 +20,7 @@ const Dashboard = () => {
         <img src={dash} alt="ícone de prancheta" />
         <h3>inventariar bens</h3>
       </DashboardLink>
-      <DashboardLink to='#' className="center">
+      <DashboardLink to='/dependencies' className="center">
         <img src={plane} alt="icone de avião" />
         <h3>inventário por dependência</h3>
       </DashboardLink>

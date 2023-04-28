@@ -7,7 +7,6 @@ margin-top: 55px;
   margin: 45px auto;
 }
 .btn{
-
   width: 210px;
   display: block;
   margin: 65px auto 0 auto;
@@ -30,6 +29,8 @@ margin-top: 55px;
 }
 `
 export const DashboardLink = styled(Link) `
+
+transition: background-color 0.5s ease;
 height: 100px;
 text-decoration: none;
 color: #FFFFFF;
@@ -42,12 +43,19 @@ gap: 20px;
 box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
 border-radius: 10px;
 margin: 0 auto;
-
+:hover {
+  background-color: #0099DA;
+  img, h3{
+    background-color: #0099DA;
+  }
+}
 img{
   background: #0074A6;
+  transition: background-color 0.5s ease;
 }
 
 h3{
+  transition: background-color 0.5s ease;
   background: #0074A6;
   font-weight: 700;
   font-size: 16px;
