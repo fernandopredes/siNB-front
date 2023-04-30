@@ -29,9 +29,9 @@ const schema = yup.object({
   try {
       const res = await api.post('/login', data);
       alert('Login bem sucedido');
-
       localStorage.setItem('token', `${String(res.data.access_token)}`)
       localStorage.setItem('user_id', `${String(res.data.user_id)}`)
+      localStorage.setItem('user_registry', `${String(res.data.user_registry)}`)
 
       navigate('/')
       window.location.reload()

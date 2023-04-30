@@ -32,6 +32,7 @@ const Scan = () => {
     verified: false,
   })
   const token = localStorage.getItem('token')
+  const user_registry = localStorage.getItem('user_registry')
 
   /* função do scan */
   const handleScan = (data:any) => {
@@ -76,17 +77,17 @@ const Scan = () => {
   /* Funções para editar o item como verificado ou retornar para o menu principal */
   const editStatus = async () => {
     try {
-      const res = await api.put(`/patrimonies/${record.number}`,{
-        "verified": true
-      })
-      console.log(res)
-      alert('Patrimônio verificado com sucesso')
-      window.location.reload()
+      record.registry !== user_registry
+        ? alert('Somente o dono do bem pode alterar o status.')
+        : (
+            await api.put(`/patrimonies/${record.number}`, { "verified": true }),
+            alert('Patrimônio verificado com sucesso'),
+            window.location.reload()
+          );
     } catch (err) {
-
-      alert('houve um erro na verificar o patrimônio. Tente novamente.')
+      alert('houve um erro na verificar o patrimônio. Tente novamente.');
     }
-  }
+  };
 
   const returnHome = () =>{
     navigate('/')
