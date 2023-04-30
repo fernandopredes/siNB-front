@@ -76,7 +76,7 @@ const Scan = () => {
   /* Funções para editar o item como verificado ou retornar para o menu principal */
   const editStatus = async () => {
     try {
-      const res = await api.put(`/patrimonies/${record.id}`,{
+      const res = await api.put(`/patrimonies/${record.number}`,{
         "verified": true
       })
       console.log(res)
